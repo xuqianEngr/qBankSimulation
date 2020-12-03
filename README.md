@@ -7,7 +7,7 @@
 * 暂定命令行操作，GUI界面后期开发   
    
 ## 参数描述   
-__qbank command  <-option>  [description]__     
+__qbank command  <-option>  [description] ["message"]__     
 * __command__    user  _使用客户账户登录_  
 > __command  <-option>  [description]__   
 > * __command__    log   _查询账户收支明细_  
@@ -30,7 +30,8 @@ __qbank command  <-option>  [description]__
 > __[description]__    _eg.  1 到期取出id值为1的存款至余额_      
 > _command_      takeout  _取出余额_   
 > __[description]__    _eg.  200     取出200元_  
-   
+> __["message"]__    _eg. "我要买游戏机" 打上需要取出余额的理由_   
+     
 * __command__    admin  _使用管理员账户登录_   
 > * __command  <-option> [description]__   
 > * __command__  interest  _利率操作_   
