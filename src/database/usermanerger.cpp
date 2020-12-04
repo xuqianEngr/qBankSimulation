@@ -40,14 +40,18 @@ void creatUserDatabase(){
     }
 }
 
-void initUserDatabse(){
+bool initUserDatabse(){
+    bool stage = false;
     QString filePath = DATABSE_PATH+"/"+USERS_FILE_NAME;
     if(!QDir().exists(filePath)){
         LOGIN_MESSAGE userAdmin;
         creatUserDatabase();
         userAdmin.name = ADMIN_DEFAULT_NAME;
         userAdmin.hashPasswd = getHash(ADMIN_DEFAULT_PASSWD);
+        addUser(userAdmin);
+        stage = true;
     }
+    return stage;
 }
 
 bool checkUserExist(QString userName){
@@ -97,7 +101,7 @@ bool changePasswd(LOGIN_MESSAGE user){
     QSqlQuery query(dbconn);
     if(dbconn.open()){
         QSqlQuery query(dbconn);
-        QString commandString = "UPDATE userList SET passwdHash = '"+user.hashPasswd +"' WHERE user = "+ user.name;
+        QString commandString = "UPDATE userList SET passwdHash = '"+user.hashPasswd +"' WHERE user = '"+ user.name+"'";
         query.exec(commandString);
         stage = true;
         dbconn.close();
@@ -120,10 +124,12 @@ bool userLogin(LOGIN_MESSAGE* user){
            databaseUser.loginTime = query.value(3).toString();
        }
        if((user->name == databaseUser.name)&&(user->hashPasswd == databaseUser.hashPasswd)){
-           stage = true;
-           QString commandString = "UPDATE userList SET loginTime = '"\
+            QString commandString = "UPDATE userList SET loginTime = '"\
                    + QDate::currentDate().toString("yyyy/MM/dd") + " " +QTime::currentTime().toString("hh:mm:ss")+"' WHERE user ='"+ user->name+"'";
-           query.exec(commandString);
+            query.exec(commandString);
+            user->buildTime = databaseUser.buildTime;
+            user->loginTime = databaseUser.loginTime;
+            stage = true;
        }
         dbconn.close();
     }

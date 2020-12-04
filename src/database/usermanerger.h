@@ -23,7 +23,7 @@ struct LOGIN_MESSAGE{
 };
 
 QString getHash(QString string);
-void initUserDatabse();
+bool initUserDatabse();
 bool addUser(LOGIN_MESSAGE user);
 bool changePasswd(LOGIN_MESSAGE user);
 bool checkUserExist(QString userName);
