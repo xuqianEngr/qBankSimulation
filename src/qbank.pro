@@ -16,9 +16,17 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+        control/interfacestate.cpp \
+        control/statemathine.cpp \
+        control/terminalcontrol.cpp \
         control/workpath.cpp \
         database/usermanerger.cpp \
-        main.cpp
+        main.cpp \
+        state/adduserstate.cpp \
+        state/admincommanddealstate.cpp \
+        state/changepasswdstate.cpp \
+        state/loginstate.cpp \
+        state/usercommanddealstate.cpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -26,5 +34,13 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
+    control/interfacestate.h \
+    control/statemathine.h \
+    control/terminalcontrol.h \
     control/workpath.h \
-    database/usermanerger.h
+    database/usermanerger.h \
+    state/adduserstate.h \
+    state/admincommanddealstate.h \
+    state/changepasswdstate.h \
+    state/loginstate.h \
+    state/userdommanddealstate.h
