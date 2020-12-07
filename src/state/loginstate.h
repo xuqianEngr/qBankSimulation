@@ -6,7 +6,7 @@
 class loginState: interfaceState
 {
 public:
-    loginState();
+    loginState(QString* cout);
     QString waitPara1Deal(QString para) override;
     QString waitPara2Deal(QString para) override;
 private:

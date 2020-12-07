@@ -6,11 +6,9 @@
 class changePasswdState: interfaceState
 {
 public:
-    changePasswdState();
+    changePasswdState(QString* cout);
     QString waitPara1Deal(QString para) override;
     QString waitPara2Deal(QString para) override;
-    QString waitPara3Deal(QString para) override;
-    QString waitPara4Deal(QString para) override;
 private:
     LOGIN_MESSAGE user;
 };

@@ -4,8 +4,6 @@
 #include "QObject"
 #include "control/terminalcontrol.h"
 
-#define COMMAND_ERRO  "command erro"
-
 enum WAIT_NEXT_PARA_STATE{
     wait_para1,
     wait_para2,

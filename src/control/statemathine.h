@@ -15,6 +15,7 @@ private:
     static stateMathine* _stateMathine;
     interfaceState* currentState = nullptr;
     stateMathine();
+    bool commandDiscriminate(QString para, QString* outString);
 private slots:
     void stateChanged(interfaceState* nextState);
 };

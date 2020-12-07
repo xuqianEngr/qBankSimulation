@@ -1,20 +1,26 @@
 #include "adduserstate.h"
-#include "state/admincommanddealstate.h"
+#include "out/textout.h"
+#include "data/configuration.h"
 
-adduserState::adduserState()
-{
-
+adduserState::adduserState(QString* cout){
+    *cout = INFORMATION_HEAD + tr("please enter user name.");
 }
+
 QString adduserState::waitPara1Deal(QString para)
 {
     QString temp = COMMAND_ERRO;
-    if(!checkUserExist(para)){
-        this->newUser.name = para;
-        temp = tr("please enter password.");
-        this->stage = WAIT_NEXT_PARA_STATE::wait_para2;
+    if(configuration::getInstance()->getLoginUser().name == ADMIN_DEFAULT_NAME){
+        if(!checkUserExist(para)){
+            this->newUser.name = para;
+            temp = INFORMATION_HEAD + tr("please enter password.");
+            this->stage = WAIT_NEXT_PARA_STATE::wait_para2;
+        }
+        else{
+            temp = WANNING_HEAD + tr("user is exist please try again.");
+        }
     }
     else{
-        temp = tr("user is exist please try again.");
+        temp = ERRO_HEAD + tr("you are not admin !");
     }
     return temp;
 }
@@ -22,23 +28,7 @@ QString adduserState::waitPara1Deal(QString para)
 QString adduserState::waitPara2Deal(QString para){
     QString temp = COMMAND_ERRO;
     this->newUser.hashPasswd  = getHash(para);
-    temp = tr("please enter password again.");
-    this->stage = WAIT_NEXT_PARA_STATE::wait_para3;
-    return temp;
-}
-
-QString adduserState::waitPara3Deal(QString para){
-    QString temp = COMMAND_ERRO;
-    if(this->newUser.hashPasswd  == getHash(para)){
-        temp = tr("add user is complete.");
-        addUser(this->newUser);
-        interfaceState* state = (interfaceState*)new adminCommandDealState();
-        clearTerminal();
-        emit changeState(state);
-    }
-    else{
-        temp = tr("password is different, plese enter again.");
-        this->stage = WAIT_NEXT_PARA_STATE::wait_para2;
-    }
+    temp = INFORMATION_HEAD + tr("add user is complete.") + COMMAND_END;
+    addUser(this->newUser);
     return temp;
 }

@@ -3,6 +3,7 @@ QT       += sql
 
 CONFIG += c++11 console
 CONFIG -= app_bundle
+CONFIG += console pro
 
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings
@@ -20,13 +21,13 @@ SOURCES += \
         control/statemathine.cpp \
         control/terminalcontrol.cpp \
         control/workpath.cpp \
+        data/configuration.cpp \
         database/usermanerger.cpp \
         main.cpp \
+        out/textout.cpp \
         state/adduserstate.cpp \
-        state/admincommanddealstate.cpp \
         state/changepasswdstate.cpp \
-        state/loginstate.cpp \
-        state/usercommanddealstate.cpp
+        state/loginstate.cpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -38,9 +39,9 @@ HEADERS += \
     control/statemathine.h \
     control/terminalcontrol.h \
     control/workpath.h \
+    data/configuration.h \
     database/usermanerger.h \
+    out/textout.h \
     state/adduserstate.h \
-    state/admincommanddealstate.h \
     state/changepasswdstate.h \
-    state/loginstate.h \
-    state/userdommanddealstate.h
+    state/loginstate.h

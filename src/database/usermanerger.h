@@ -7,6 +7,7 @@
 #include <QtSql/QSqlQuery>
 #include <QtSql/QSqlDriver>
 #include <QtSql/QSqlError>
+#include "data/configuration.h"
 
 #define USERS_FILE_NAME   "users.db"
 #define CONNECT_NAME    "qt_sql_default_connection"
@@ -15,12 +16,7 @@
 #define ADMIN_DEFAULT_NAME      "admin"
 #define ADMIN_DEFAULT_PASSWD    "123456"
 
-struct LOGIN_MESSAGE{
-    QString name;
-    QString hashPasswd;
-    QString buildTime;
-    QString loginTime;
-};
+
 
 QString getHash(QString string);
 bool initUserDatabse();

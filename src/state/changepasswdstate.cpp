@@ -1,19 +1,25 @@
 #include "changepasswdstate.h"
-#include "state/loginstate.h"
+#include "out/textout.h"
+#include "data/configuration.h"
 
-changePasswdState::changePasswdState()
-{
-
+changePasswdState::changePasswdState(QString* cout){
+    *cout = INFORMATION_HEAD + tr("please enter password.");
 }
 QString changePasswdState::waitPara1Deal(QString para){
     QString tempString = COMMAND_ERRO;
-    if(checkUserExist(para)){
-        this->user.name = para;
-        tempString = tr("please enter password.");
-        this->stage = WAIT_NEXT_PARA_STATE::wait_para2;
+    if(configuration::getInstance()->getLoginUser().name != ""){
+        this->user.name = configuration::getInstance()->getLoginUser().name;
+        this->user.hashPasswd = getHash(para);
+        if(configuration::getInstance()->getLoginUser().hashPasswd == this->user.hashPasswd){
+            tempString = INFORMATION_HEAD + tr("please enter new password.");
+            this->stage = WAIT_NEXT_PARA_STATE::wait_para2;
+        }
+        else{
+            tempString = WANNING_HEAD + tr("password is erro.");
+        }
     }
     else{
-        tempString = tr("user is not exist, please try again.");
+        tempString = WANNING_HEAD + tr("please login.");
     }
     return tempString;
 }
@@ -21,36 +27,9 @@ QString changePasswdState::waitPara1Deal(QString para){
 QString changePasswdState::waitPara2Deal(QString para){
     QString tempString = COMMAND_ERRO;
     this->user.hashPasswd = getHash(para);
-    if(userLogin(&this->user)){
-        tempString = tr("please enter new password.");
-        this->stage = WAIT_NEXT_PARA_STATE::wait_para3;
-    }
-    else{
-        tempString = tr("password is erro, please try again.");
-    }
+    changePasswd(this->user);
+    configuration::getInstance()->loginOut();
+    tempString = INFORMATION_HEAD + tr("change password ok, please login again.") + COMMAND_END;
     return tempString;
 }
 
-QString changePasswdState::waitPara3Deal(QString para){
-    QString temp = COMMAND_ERRO;
-    this->user.hashPasswd  = getHash(para);
-    temp = tr("please enter new password again.");
-    this->stage = WAIT_NEXT_PARA_STATE::wait_para4;
-    return temp;
-}
-
-QString changePasswdState::waitPara4Deal(QString para){
-    QString temp = COMMAND_ERRO;
-    if(this->user.hashPasswd  == getHash(para)){
-        temp = tr("password is changed, please login again, enter name:");
-        changePasswd(this->user);
-        interfaceState* state = (interfaceState*)new loginState();
-        clearTerminal();
-        emit changeState(state);
-    }
-    else{
-        temp = tr("password is different, plese enter again.");
-        this->stage = WAIT_NEXT_PARA_STATE::wait_para3;
-    }
-    return temp;
-}

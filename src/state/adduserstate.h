@@ -6,10 +6,9 @@
 class adduserState: interfaceState
 {
 public:
-    adduserState();
+    adduserState(QString* cout);
     QString waitPara1Deal(QString para) override;
     QString waitPara2Deal(QString para) override;
-    QString waitPara3Deal(QString para) override;
 private:
     LOGIN_MESSAGE newUser;
 };
