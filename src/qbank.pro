@@ -22,6 +22,7 @@ SOURCES += \
         control/terminalcontrol.cpp \
         control/workpath.cpp \
         data/configuration.cpp \
+        database/accountmanerger.cpp \
         database/usermanerger.cpp \
         main.cpp \
         out/textout.cpp \
@@ -40,6 +41,7 @@ HEADERS += \
     control/terminalcontrol.h \
     control/workpath.h \
     data/configuration.h \
+    database/accountmanerger.h \
     database/usermanerger.h \
     out/textout.h \
     state/adduserstate.h \
