@@ -14,11 +14,11 @@ QString getHash(QString string){
 
 void checkoutdbconn(QSqlDatabase* dbconn){
     QString filePath = DATABSE_PATH+"/"+USERS_FILE_NAME;
-    if (QSqlDatabase::contains(CONNECT_NAME)){
-        *dbconn = QSqlDatabase::database(CONNECT_NAME);
+    if (QSqlDatabase::contains(USER_CONNECT_NAME)){
+        *dbconn = QSqlDatabase::database(USER_CONNECT_NAME);
     }
     else{
-        *dbconn=QSqlDatabase::addDatabase(DATABASE_TYPE, CONNECT_NAME);
+        *dbconn=QSqlDatabase::addDatabase(DATABASE_TYPE, USER_CONNECT_NAME);
     }
     dbconn->setDatabaseName(filePath);
 }
