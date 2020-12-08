@@ -8,6 +8,7 @@
 #define DATABASE_DIR_NAME     "database"
 #define WORK_PATH    getWorkPath()     //工作路径
 #define DATABSE_PATH  getDatabasePath()    //数据库存储路径
+#define ACCOUNT_PATH    WORK_PATH + "/.account"      //账户路径
 
 QString getWorkPath();
 QString getDatabasePath();
