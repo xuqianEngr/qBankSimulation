@@ -2,6 +2,10 @@
 #define CONFIGURATION_H
 #include "QString"
 
+#define DATABASE_TYPE       "QSQLITE"
+#define USER_CONNECT_NAME    "qt_sql_default_connection"
+#define ACCOUNT_CONNECT_NAME    "qt_sql_account_connect"
+
 struct LOGIN_MESSAGE{
     QString name;
     QString hashPasswd;
